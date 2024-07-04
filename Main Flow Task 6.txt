@@ -1,0 +1,218 @@
+SQL> create table employee3(empcode number(2)primary key,empname char(10)not null,dob date not null,dept char(15)not null,salary number(7,2));
+
+Table created.
+
+SQL> desc employee3;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMPCODE                                   NOT NULL NUMBER(2)
+ EMPNAME                                   NOT NULL CHAR(10)
+ DOB                                       NOT NULL DATE
+ DEPT                                      NOT NULL CHAR(15)
+ SALARY                                             NUMBER(7,2)
+
+SQL> alter table employee3 add phoneno number(10);
+
+Table altered.
+
+SQL> desc employee3;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMPCODE                                   NOT NULL NUMBER(2)
+ EMPNAME                                   NOT NULL CHAR(10)
+ DOB                                       NOT NULL DATE
+ DEPT                                      NOT NULL CHAR(15)
+ SALARY                                             NUMBER(7,2)
+ PHONENO                                            NUMBER(10)
+
+SQL>  insert into employee values(01,'ethan','10-apr-1991','computer',7000.50,9453624615);
+
+1 row created.
+
+SQL> 
+SQL>  insert into employee values(02,'john','27-mar-1967','computer',4000.50,5643259357);
+
+1 row created.
+
+SQL> 
+SQL>  insert into employee values(03,'torttho','13-oct-1996','hr',5500.50,7412338295);
+
+1 row created.
+
+SQL> 
+SQL>  insert into employee values(04,'jousha','07-aug-1997','sales',8500.50,6426356297);
+
+1 row created.
+
+SQL> 
+SQL>  insert into employee values(05,'lilly','23-july-1966','sales',3500.50,8903003527);
+
+1 row created.
+
+SQL> 
+SQL>  insert into employee values(06,'mia','22-may-1957','hr',9500.50,5337900275);
+
+1 row created.
+
+SQL> 
+SQL>  insert into employee values(07,'sypher','16-nov-1968','hr',1500.50,6435392037);
+
+1 row created.
+
+SQL> select*from employee;
+
+   EMPCODE EMPNAME    DOB       DEPT                SALARY    PHONENO           
+---------- ---------- --------- --------------- ---------- ----------           
+         1 ethan      10-APR-91 computer            7000.5 9453624615           
+         2 john       27-MAR-67 computer            4000.5 5643259357           
+         3 torttho    13-OCT-96 hr                  5500.5 7412338295           
+         4 jousha     07-AUG-97 sales               8500.5 6426356297           
+         5 lilly      23-JUL-66 sales               3500.5 8903003527           
+         6 mia        22-MAY-57 hr                  9500.5 5337900275           
+         7 sypher     16-NOV-68 hr                  1500.5 6435392037           
+
+7 rows selected.
+
+SQL> delete from employee where empcode=07;
+
+1 row deleted.
+
+SQL> select*from employee;
+
+   EMPCODE EMPNAME    DOB       DEPT                SALARY    PHONENO           
+---------- ---------- --------- --------------- ---------- ----------           
+         1 ethan      10-APR-91 computer            7000.5 9453624615           
+         2 john       27-MAR-67 computer            4000.5 5643259357           
+         3 torttho    13-OCT-96 hr                  5500.5 7412338295           
+         4 jousha     07-AUG-97 sales               8500.5 6426356297           
+         5 lilly      23-JUL-66 sales               3500.5 8903003527           
+         6 mia        22-MAY-57 hr                  9500.5 5337900275           
+
+6 rows selected.
+
+SQL> select dept,count(empcode)as total_employees from employee group by dept;
+
+DEPT            TOTAL_EMPLOYEES                                                 
+--------------- ---------------                                                 
+computer                      2                                                 
+hr                            2                                                 
+sales                         2                                                 
+
+SQL> select sum(salary)from employee;
+
+SUM(SALARY)                                                                     
+-----------                                                                     
+      38003                                                                     
+
+SQL> select sum(salary),avg(salary)from employee where dept='computer';
+
+SUM(SALARY) AVG(SALARY)                                                         
+----------- -----------                                                         
+      11001      5500.5                                                         
+
+SQL> select max(salary)from employee;
+
+MAX(SALARY)                                                                     
+-----------                                                                     
+     9500.5                                                                     
+
+SQL> select min(salary)from employee;
+
+MIN(SALARY)                                                                     
+-----------                                                                     
+     3500.5                                                                     
+
+SQL>  select dept,sum(salary)from employee group by dept;
+
+DEPT            SUM(SALARY)                                                     
+--------------- -----------                                                     
+computer              11001                                                     
+hr                    15001                                                     
+sales                 12001                                                     
+
+SQL>  update employee set salary=salary+500 where dept='computer';
+
+2 rows updated.
+
+SQL> select*from employee;
+
+   EMPCODE EMPNAME    DOB       DEPT                SALARY    PHONENO           
+---------- ---------- --------- --------------- ---------- ----------           
+         1 ethan      10-APR-91 computer            7500.5 9453624615           
+         2 john       27-MAR-67 computer            4500.5 5643259357           
+         3 torttho    13-OCT-96 hr                  5500.5 7412338295           
+         4 jousha     07-AUG-97 sales               8500.5 6426356297           
+         5 lilly      23-JUL-66 sales               3500.5 8903003527           
+         6 mia        22-MAY-57 hr                  9500.5 5337900275           
+
+6 rows selected.
+
+SQL> update employee set salary=salary+200 where dept='he';
+
+0 rows updated.
+
+SQL> update employee set salary=salary+200 where dept='hr';
+
+2 rows updated.
+
+SQL> select*from employee;
+
+   EMPCODE EMPNAME    DOB       DEPT                SALARY    PHONENO           
+---------- ---------- --------- --------------- ---------- ----------           
+         1 ethan      10-APR-91 computer            7500.5 9453624615           
+         2 john       27-MAR-67 computer            4500.5 5643259357           
+         3 torttho    13-OCT-96 hr                  5700.5 7412338295           
+         4 jousha     07-AUG-97 sales               8500.5 6426356297           
+         5 lilly      23-JUL-66 sales               3500.5 8903003527           
+         6 mia        22-MAY-57 hr                  9700.5 5337900275           
+
+6 rows selected.
+
+SQL> select*from employee where dept='sales' order by dob asc;
+
+   EMPCODE EMPNAME    DOB       DEPT                SALARY    PHONENO           
+---------- ---------- --------- --------------- ---------- ----------           
+         5 lilly      23-JUL-66 sales               3500.5 8903003527           
+         4 jousha     07-AUG-97 sales               8500.5 6426356297           
+
+SQL> select*from employee order by empname asc;
+
+   EMPCODE EMPNAME    DOB       DEPT                SALARY    PHONENO           
+---------- ---------- --------- --------------- ---------- ----------           
+         1 ethan      10-APR-91 computer            7500.5 9453624615           
+         2 john       27-MAR-67 computer            4500.5 5643259357           
+         4 jousha     07-AUG-97 sales               8500.5 6426356297           
+         5 lilly      23-JUL-66 sales               3500.5 8903003527           
+         6 mia        22-MAY-57 hr                  9700.5 5337900275           
+         3 torttho    13-OCT-96 hr                  5700.5 7412338295           
+
+6 rows selected.
+
+SQL> select distinct empname from employee;
+
+EMPNAME                                                                         
+----------                                                                      
+ethan                                                                           
+john                                                                            
+torttho                                                                         
+jousha                                                                          
+lilly                                                                           
+mia                                                                             
+
+6 rows selected.
+
+SQL> select*from employee where salary between 4000.00 and 5800.50;
+
+   EMPCODE EMPNAME    DOB       DEPT                SALARY    PHONENO           
+---------- ---------- --------- --------------- ---------- ----------           
+         2 john       27-MAR-67 computer            4500.5 5643259357           
+         3 torttho    13-OCT-96 hr                  5700.5 7412338295           
+
+SQL> select empname from employee where dept='hr';
+
+EMPNAME                                                                         
+----------                                                                      
+torttho                                                                         
+mia                                                                             
+
+SQL> spool off;
